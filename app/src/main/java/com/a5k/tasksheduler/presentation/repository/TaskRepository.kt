@@ -4,19 +4,19 @@ import com.a5k.tasksheduler.presentation.entity.Task
 
 interface TaskRepository {
 
-    fun getAllTask(): List<Task>
+    suspend fun getAllTask(): List<Task>
 
-    fun getTask(id: Int): List<Task>
+    suspend fun getTask(id: Int): List<Task>
 
-    fun getTask(date: String): List<Task>
+    suspend fun getTask(date: String): List<Task>
 
-    fun saveTask(task: Task)
+    suspend fun saveTask(task: Task)
 
-    fun saveListTask(task: Task)
+    suspend fun saveListTask(listTask: List<Task>)
 
-    fun deleteAllTask()
+    suspend fun deleteAllTask()
 
-    fun deleteTask(id: Int)
+    suspend fun deleteTask(id: Int)
 
-    fun updateTask(task: Task): Task
+    suspend fun updateTask(task: Task): Task
 }
