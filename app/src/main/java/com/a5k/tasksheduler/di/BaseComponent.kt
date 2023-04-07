@@ -5,8 +5,10 @@ import com.a5k.tasksheduler.ui.fragment.TasksFragment
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Singleton
 
 
+@Singleton
 @Component(
     modules = [
         DatabaseModule::class,

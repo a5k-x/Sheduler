@@ -2,7 +2,9 @@ package com.a5k.tasksheduler.data.repository
 
 import com.a5k.tasksheduler.presentation.entity.Task
 import com.a5k.tasksheduler.presentation.repository.TaskRepository
+import javax.inject.Singleton
 
+@Singleton
 class TaskRepositoryImpl: TaskRepository {
 
     override fun getAllTask(): List<Task> {
@@ -13,11 +15,15 @@ class TaskRepositoryImpl: TaskRepository {
         TODO("Not yet implemented")
     }
 
+    override fun getTask(date: String): List<Task> {
+        TODO("Not yet implemented")
+    }
+
     override fun saveTask(task: Task) {
         TODO("Not yet implemented")
     }
 
-    override fun saveList(task: Task) {
+    override fun saveListTask(task: Task) {
         TODO("Not yet implemented")
     }
 

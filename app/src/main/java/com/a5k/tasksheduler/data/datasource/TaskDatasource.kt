@@ -1,20 +1,22 @@
 package com.a5k.tasksheduler.data.datasource
 
-import com.a5k.tasksheduler.data.model.TaskDao
+import com.a5k.tasksheduler.data.model.TaskDto
 
 interface TaskDatasource {
 
-    fun getAllTask(): List<TaskDao>
+    suspend fun getAllTask(): List<TaskDto?>
 
-    fun getTask(id: Int): List<TaskDao>
+    suspend fun getTask(id: Int): List<TaskDto?>
 
-    fun saveTask(task: TaskDao)
+    suspend fun getTask(dateStart: Long, dateFinish: Long): List<TaskDto?>
 
-    fun saveList(task: TaskDao)
+    suspend fun saveTask(task: TaskDto)
 
-    fun deleteAllTask()
+    suspend fun saveListTask(listTask: List<TaskDto>)
 
-    fun deleteTask(id: Int)
+    suspend fun deleteAllTask()
 
-    fun updateTask(task: TaskDao): TaskDao
+    suspend fun deleteTask(id: Int)
+
+    suspend fun updateTask(task: TaskDto): TaskDto
 }

@@ -1,34 +1,66 @@
 package com.a5k.tasksheduler.data.datasource
 
-import com.a5k.tasksheduler.data.model.TaskDao
+import com.a5k.tasksheduler.data.database.AppDatabase
+import com.a5k.tasksheduler.data.model.TaskDto
+import com.a5k.tasksheduler.di.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TaskDatasourceImpl: TaskDatasource {
+@Singleton
+class TaskDatasourceImpl @Inject constructor(
+    appDatabase: AppDatabase,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+) : TaskDatasource {
 
-    override fun getAllTask(): List<TaskDao> {
-        TODO("Not yet implemented")
+    private val db = appDatabase.getTaskDao()
+
+    override suspend fun getAllTask(): List<TaskDto?> {
+        return withContext(ioDispatcher) {
+            db.getAllTask()
+        }
     }
 
-    override fun getTask(id: Int): List<TaskDao> {
-        TODO("Not yet implemented")
+    override suspend fun getTask(id: Int): List<TaskDto?> {
+        return withContext(ioDispatcher) {
+            db.getTask(id)
+        }
     }
 
-    override fun saveTask(task: TaskDao) {
-        TODO("Not yet implemented")
+    override suspend fun getTask(dateStart: Long, dateFinish: Long): List<TaskDto?> {
+        return withContext(ioDispatcher) {
+            db.getTask(dateStart, dateFinish)
+        }
     }
 
-    override fun saveList(task: TaskDao) {
-        TODO("Not yet implemented")
+    override suspend fun saveTask(task: TaskDto) {
+        return withContext(ioDispatcher) {
+            db.saveTask(task)
+        }
     }
 
-    override fun deleteAllTask() {
-        TODO("Not yet implemented")
+    override suspend fun saveListTask(listTask: List<TaskDto>) {
+        return withContext(ioDispatcher) {
+            db.saveListTask(listTask)
+        }
     }
 
-    override fun deleteTask(id: Int) {
-        TODO("Not yet implemented")
+    override suspend fun deleteAllTask() {
+        return withContext(ioDispatcher) {
+            db.deleteAllTask()
+        }
     }
 
-    override fun updateTask(task: TaskDao): TaskDao {
-        TODO("Not yet implemented")
+    override suspend fun deleteTask(id: Int) {
+        return withContext(ioDispatcher) {
+            db.deleteTask(id)
+        }
+    }
+
+    override suspend fun updateTask(task: TaskDto): TaskDto {
+        return withContext(ioDispatcher) {
+            db.updateTask(task)
+        }
     }
 }

@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.a5k.tasksheduler.data.model.TaskDao
+import com.a5k.tasksheduler.data.model.TaskDto
 
 @Database(
     entities = [
-        TaskDao::class,
+        TaskDto::class,
     ],
     version = 1,
     exportSchema = true

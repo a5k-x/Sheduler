@@ -8,9 +8,11 @@ interface TaskRepository {
 
     fun getTask(id: Int): List<Task>
 
+    fun getTask(date: String): List<Task>
+
     fun saveTask(task: Task)
 
-    fun saveList(task: Task)
+    fun saveListTask(task: Task)
 
     fun deleteAllTask()
 
