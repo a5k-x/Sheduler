@@ -1,8 +1,6 @@
 package com.a5k.tasksheduler
 
-import com.a5k.tasksheduler.util.getTime
-import com.a5k.tasksheduler.util.toDateFinish
-import com.a5k.tasksheduler.util.toDateStart
+import com.a5k.tasksheduler.util.*
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -27,7 +25,14 @@ class UtilTest {
     @Test
     fun get_time_from_timestamp(){
         val testTimestamp = 1303675199000
-        val time = testTimestamp.getTime()
+        val time = testTimestamp.toStringTime()
         assertEquals("23:59", time)
+    }
+
+    @Test
+    fun get_coordinate_from_time(){
+        val testTimestamp = 1303675199000
+        val coordinate = testTimestamp.toCoordinate(1200)
+        assertEquals(1199, coordinate)
     }
 }

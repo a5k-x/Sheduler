@@ -6,7 +6,7 @@ import com.a5k.tasksheduler.di.DaggerBaseComponent
 
 class App: Application() {
 
-    private lateinit var appBaseComponent: BaseComponent
+    lateinit var appBaseComponent: BaseComponent
 
     override fun onCreate() {
         super.onCreate()

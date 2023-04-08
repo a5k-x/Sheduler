@@ -1,6 +1,6 @@
-package com.a5k.tasksheduler.presentation.repository
+package com.a5k.tasksheduler.domain.repository
 
-import com.a5k.tasksheduler.presentation.entity.Task
+import com.a5k.tasksheduler.domain.entity.Task
 
 interface TaskRepository {
 

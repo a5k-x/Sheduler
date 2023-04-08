@@ -1,7 +1,7 @@
 package com.a5k.tasksheduler.di
 
 import android.content.Context
-import com.a5k.tasksheduler.ui.fragment.TasksFragment
+import com.a5k.tasksheduler.ui.fragment.TaskFragment
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,7 +14,8 @@ import javax.inject.Singleton
         DatabaseModule::class,
         DispatcherModule::class,
         DataSourceModule::class,
-        RepositoryModule::class
+        RepositoryModule::class,
+        ViewModelModule::class
     ]
 )
 interface BaseComponent {
@@ -27,6 +28,5 @@ interface BaseComponent {
     @IoDispatcher
     fun dispatcher(): CoroutineDispatcher
 
-    fun inject(tasksFragment: TasksFragment)
-
+    fun inject(taskFragment: TaskFragment)
 }

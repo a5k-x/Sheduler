@@ -3,8 +3,8 @@ package com.a5k.tasksheduler.data.repository
 import com.a5k.tasksheduler.data.converter.toTask
 import com.a5k.tasksheduler.data.converter.toTaskDto
 import com.a5k.tasksheduler.data.datasource.TaskDatasource
-import com.a5k.tasksheduler.presentation.entity.Task
-import com.a5k.tasksheduler.presentation.repository.TaskRepository
+import com.a5k.tasksheduler.domain.entity.Task
+import com.a5k.tasksheduler.domain.repository.TaskRepository
 import com.a5k.tasksheduler.util.toDateFinish
 import com.a5k.tasksheduler.util.toDateStart
 import javax.inject.Inject

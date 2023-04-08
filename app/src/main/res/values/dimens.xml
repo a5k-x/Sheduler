@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="graph_width">400dp</dimen>
+    <dimen name="graph_height">400dp</dimen>
+    <dimen name="margin_top_graph">30dp</dimen>
+    <dimen name="task_height">700dp</dimen>
+</resources>

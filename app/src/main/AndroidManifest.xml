@@ -9,6 +9,7 @@
         android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
         android:theme="@style/Theme.TaskSheduler"
+        android:name=".App"
         tools:targetApi="31">
         <activity
             android:name=".ui.MainActivity"
