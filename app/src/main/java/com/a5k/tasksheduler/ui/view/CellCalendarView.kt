@@ -9,7 +9,7 @@ import android.view.View
 import com.a5k.tasksheduler.R
 
 
-class CalendarView @JvmOverloads constructor(
+class CellCalendarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -17,36 +17,34 @@ class CalendarView @JvmOverloads constructor(
 
     // Vertical line
     private var startLineVerticalY = 0f
-    private val wightTextX = 100f
     val heightLineVertical = 100f
 
     //text
-    val timeTextStartX = 10f
-
-    private var text = "12:30"
+    private val timeStartX = 10f
+    private var time = "00:00"
 
     // Horizontal line
     private var startLineHorizontalY = startLineVerticalY
-    val longHorizontal = 500f
+    private var longHorizontal = 0
 
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = context.getColor(R.color.green)
-        strokeWidth = 6f
+        color = context.getColor(R.color.black200)
+        strokeWidth = 5f
     }
 
     private var textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = context.getColor(R.color.teal_700)
-        textSize = 32f
+        color = context.getColor(R.color.black)
+        textSize = 36f
     }
 
     //размеры графа
     private val contentWidth = resources.getDimensionPixelSize(R.dimen.graph_width)
     private var contentHeight = resources.getDimensionPixelSize(R.dimen.graph_height)
 
-    fun setting(text: String) {
-        this.text = text
+    fun setting(time: String) {
+        this.time = time
         requestLayout()
         invalidate()
     }
@@ -55,6 +53,7 @@ class CalendarView @JvmOverloads constructor(
         val resolveWidth = resolveSize(contentWidth, widthMeasureSpec)
         val resolveHeight = resolveSize(contentHeight, heightMeasureSpec)
         setMeasuredDimension(resolveWidth, resolveHeight)
+        longHorizontal = resolveWidth
     }
 
     override fun onDraw(canvas: Canvas) = with(canvas) {
@@ -63,10 +62,11 @@ class CalendarView @JvmOverloads constructor(
 
     private fun Canvas.drawTasks() {
         val heightText = textPaint.textSize
-        drawText(text, timeTextStartX, heightText, textPaint)
+        val wightTextX = textPaint.getTextWidths(time,  FloatArray(time.length)).toFloat() * 23
+        drawText(time, timeStartX, heightText, textPaint)
         drawLine(wightTextX, startLineVerticalY, wightTextX, heightLineVertical, linePaint)
-        drawLine(wightTextX, startLineHorizontalY, longHorizontal, startLineHorizontalY, linePaint)
+        drawLine(wightTextX, startLineHorizontalY, longHorizontal.toFloat(), startLineHorizontalY, linePaint)
     }
 
-    override fun getType() = CustomType.CALENDAR
+    override fun getType() = ShedulerType.CALENDAR
 }

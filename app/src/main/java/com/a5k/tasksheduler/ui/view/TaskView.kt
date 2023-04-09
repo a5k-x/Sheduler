@@ -17,7 +17,7 @@ class TaskView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr), TypeCustomView {
 
-    private val startX = 250f
+    private val startX = 230f
 
     //размеры графа
     private val contentWidth = resources.getDimensionPixelSize(R.dimen.graph_width)
@@ -52,14 +52,13 @@ class TaskView @JvmOverloads constructor(
         color = context.getColor(R.color.black200)
         textSize = 37f
     }
+    
     var task: Task? = null
     private var heightCalendar: Int = 2400
-
     private var widthTask = 0
 
-    fun settingViewTask(task: Task, height: Int) {
+    fun settingViewTask(task: Task) {
         this.task = task
-        this.heightCalendar = height
         requestLayout()
     }
 
@@ -92,7 +91,7 @@ class TaskView @JvmOverloads constructor(
 
             val startCoordinateTextStartTimeX = startX - measureTextTime - rightMarginTime
 
-            //время задачи не накладывалось друг на друга
+            //время задачи не накладывались друг на друга
             if ((topCoordinateEndTextTime - bottomCoordinateTextStartTimeY) > 0){
                 drawText(endTime,
                     startCoordinateTextStartTimeX,
@@ -107,22 +106,22 @@ class TaskView @JvmOverloads constructor(
                 textTimePaint
                 )
 
-            drawText(task!!.name,
+            drawText(task.name,
                 startX + leftMarginTask,
                 startYCoordinateTask + heightTextTitle,
                 textPaint)
 
-            val descriptionLength = task!!.description.length
+            val descriptionLength = task.description.length
             if (descriptionLength <= 40) {
                 drawText(
-                    task!!.description,
+                    task.description,
                     startX + leftMarginTaskDescription,
                     startYCoordinateTask + heightTextTitle * 2,
                     textDescriptionPaint
                 )
             } else {
                 drawText(
-                    task!!.description.substring(0,40).plus("..."),
+                    task.description.substring(0,40).plus("..."),
                     startX + leftMarginTaskDescription,
                     startYCoordinateTask + heightTextTitle * 2,
                     textDescriptionPaint
@@ -137,6 +136,6 @@ class TaskView @JvmOverloads constructor(
         }
     }
 
-    override fun getType() = CustomType.TASK
+    override fun getType() = ShedulerType.TASK
 }
 

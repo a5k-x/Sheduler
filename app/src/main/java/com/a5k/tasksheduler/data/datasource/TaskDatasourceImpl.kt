@@ -30,7 +30,7 @@ class TaskDatasourceImpl @Inject constructor(
 
     override suspend fun getTask(dateStart: Long, dateFinish: Long): List<TaskDto?> {
         return withContext(ioDispatcher) {
-            db.getTask(dateStart, dateFinish)
+            db.getTask(dateStart.toString(), dateFinish.toString())
         }
     }
 
@@ -58,7 +58,7 @@ class TaskDatasourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateTask(task: TaskDto): TaskDto {
+    override suspend fun updateTask(task: TaskDto) {
         return withContext(ioDispatcher) {
             db.updateTask(task)
         }

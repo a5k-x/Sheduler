@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.MainActivity"
-    >
+    tools:context=".ui.MainActivity">
 
     <ImageView
         android:id="@+id/back_date"
@@ -23,10 +22,10 @@
         android:id="@+id/current_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="28sp"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toStartOf="@+id/next_date"
         app:layout_constraintStart_toEndOf="@id/back_date"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,20 +41,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/current_date" />
 
-    <LinearLayout
-        android:id="@+id/container_m"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_date">
+        app:layout_constraintTop_toBottomOf="@+id/current_date">
 
-        <com.a5k.tasksheduler.ui.view.CalendarViewGroup
-            android:id="@+id/container_mm"
+        <LinearLayout
+            android:id="@+id/container_m"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
-    </LinearLayout>
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/current_date">
 
+            <com.a5k.tasksheduler.ui.view.CalendarViewGroup
+                android:id="@+id/container_mm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:backgroundTint="@color/blue_cream"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,7 +52,7 @@ class TaskRepositoryImpl @Inject constructor(
         taskDatasource.deleteTask(id)
     }
 
-    override suspend fun updateTask(task: Task): Task {
-        return taskDatasource.updateTask(task.toTaskDto()).toTask()
+    override suspend fun updateTask(task: Task) {
+        return taskDatasource.updateTask(task.toTaskDto())
     }
 }

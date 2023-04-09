@@ -12,8 +12,8 @@ interface TaskDao {
     @Query("SELECT * FROM task WHERE id = :id")
     suspend fun getTask(id: Int): List<TaskDto?>
 
-    @Query("SELECT * FROM task WHERE date_start >= :startDate AND date_finish <= :endDate")
-    suspend fun getTask(dateStart: Long, dateFinish: Long): List<TaskDto?>
+    @Query("SELECT * FROM task WHERE date_start >= :dateStart AND date_finish <= :dateFinish")
+    suspend fun getTask(dateStart: String, dateFinish: String): List<TaskDto?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveTask(task: TaskDto)
@@ -28,5 +28,5 @@ interface TaskDao {
     suspend fun deleteTask(id: Int)
 
     @Update
-    suspend fun updateTask(task: TaskDto): TaskDto
+    suspend fun updateTask(task: TaskDto)
 }

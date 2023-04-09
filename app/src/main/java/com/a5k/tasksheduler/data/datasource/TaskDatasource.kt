@@ -18,5 +18,5 @@ interface TaskDatasource {
 
     suspend fun deleteTask(id: Int)
 
-    suspend fun updateTask(task: TaskDto): TaskDto
+    suspend fun updateTask(task: TaskDto)
 }

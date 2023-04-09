@@ -1,5 +1,7 @@
 package com.a5k.tasksheduler.util
 
+import android.util.Log
+import kotlinx.coroutines.CoroutineExceptionHandler
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -7,7 +9,10 @@ import java.util.*
 
 const val PATTERN_DATE_TIME = "yyyy-MM-dd HH:mm:ss"
 const val PATTERN_DATE = "yyyy-MM-dd"
+const val PATTERN_DATE_POINT = "dd.MM.yyyy"
 const val PATTERN_TIME = "HH:mm"
+const val TIME_FORMAT = "%02d:%02d"
+const val DATE_FORMAT = "%02d.%02d.%d"
 
 fun String.toDateStart(): Long {
     val format = SimpleDateFormat(PATTERN_DATE_TIME).parse(this).time
@@ -34,21 +39,25 @@ fun String.toSec(pattern: String): Int {
     return ((time.hour * 3600) + (time.minute * 60))
 }
 
-fun Long.toCoordinate(heightViewPx: Int ): Int {
+fun Long.toCoordinate(heightViewPx: Int): Int {
     val timeWithDate = SimpleDateFormat(PATTERN_TIME).format(this)
     val countSecFromTime = timeWithDate.toSec(PATTERN_TIME)
-    val coordinate = parseToCoordinate(countSecFromTime, heightViewPx)
-    return coordinate
+    return parseToCoordinate(countSecFromTime, heightViewPx)
 }
 
-fun parseToCoordinate(timeMSec: Int, heightView: Int)
-        = (heightView * timeMSec) / 86_400
+fun getTextTime(hours: Int, minutes: Int): String = String.format(TIME_FORMAT, hours, minutes)
 
-fun parseTimestampToString(times: Long, pattern: String): String =
-    SimpleDateFormat(pattern).format(times)
-//hardcode after delete
-fun getListTime(): List<String> {
-    val list = listOf("01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00",
-        "14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00")
-    return list
+fun parseToCoordinate(timeMSec: Int, heightView: Int): Int {
+    return (heightView * timeMSec) / 86_400
+}
+
+fun String.toSumTime(time: String): Long {
+    val dateTimestamp = SimpleDateFormat(PATTERN_DATE_POINT).parse(this).time
+    val timeTimestamp = time.toSec(PATTERN_TIME) * 1000
+    return dateTimestamp + timeTimestamp
+}
+
+//вынести
+fun defaultCoroutineExceptionHandler() = CoroutineExceptionHandler { _, throwable ->
+    Log.e("ERROR", throwable.message.toString())
 }
