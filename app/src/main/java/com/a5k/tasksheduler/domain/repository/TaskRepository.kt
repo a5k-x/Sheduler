@@ -1,6 +1,7 @@
 package com.a5k.tasksheduler.domain.repository
 
 import com.a5k.tasksheduler.domain.entity.Task
+import kotlinx.coroutines.flow.Flow
 
 interface TaskRepository {
 

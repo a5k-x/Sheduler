@@ -13,14 +13,15 @@ const val PATTERN_DATE_POINT = "dd.MM.yyyy"
 const val PATTERN_TIME = "HH:mm"
 const val TIME_FORMAT = "%02d:%02d"
 const val DATE_FORMAT = "%02d.%02d.%d"
+const val TIME_FORMAT_TEXT = "%02d:00"
 
-fun String.toDateStart(): Long {
-    val format = SimpleDateFormat(PATTERN_DATE_TIME).parse(this).time
+fun String.toDateStart(pattern: String): Long {
+    val format = SimpleDateFormat(pattern).parse(this).time
     return format
 }
 
-fun String.toDateFinish(): Long {
-    val format = SimpleDateFormat(PATTERN_DATE_TIME).parse(this).getDateFinish().time
+fun String.toDateFinish(pattern: String): Long {
+    val format = SimpleDateFormat(pattern).parse(this).getDateFinish().time
     return format
 }
 
@@ -30,8 +31,12 @@ fun Date.getDateFinish() = Calendar.getInstance().apply {
     add(Calendar.SECOND, -1)
 }.time
 
-fun Long.toStringTime(): String {
-    return SimpleDateFormat(PATTERN_TIME).format(this)
+fun Long.toStringTime(pattern: String): String {
+    return SimpleDateFormat(pattern).format(this)
+}
+
+fun Long.toStringDate(pattern: String): String {
+    return SimpleDateFormat(pattern).format(this)
 }
 
 fun String.toSec(pattern: String): Int {
@@ -61,3 +66,7 @@ fun String.toSumTime(time: String): Long {
 fun defaultCoroutineExceptionHandler() = CoroutineExceptionHandler { _, throwable ->
     Log.e("ERROR", throwable.message.toString())
 }
+
+fun Date.currentDay() = SimpleDateFormat(PATTERN_DATE_POINT).format(this)
+
+fun String.getDate(pattern: String) = SimpleDateFormat(pattern).parse(this)

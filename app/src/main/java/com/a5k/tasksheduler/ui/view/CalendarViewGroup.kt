@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_MOVE
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.a5k.tasksheduler.util.toCoordinate
 
@@ -14,34 +15,50 @@ class CalendarViewGroup @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var maxHeight = 0
-    private var heightVerticalLine = 0
+    private var maxWidth = 0
 
-    private var arrayTask = mutableListOf<Int>()
+
+    private var listTask = listOf<TaskView>()
+    private var listCell = listOf<CellCalendarView>()
+
+
+    fun initCell(listCell: List<CellCalendarView>) {
+        this.listCell = listCell
+        maxHeight = 0
+        setCell()
+    }
+
+    private fun setCell() {
+        maxHeight = 0
+        listCell.forEach { cellView ->
+            this.addView(cellView)
+            maxWidth += cellView.width
+            maxHeight += cellView.heightLineVertical.toInt()
+        }
+    }
+
+    fun initTask(listTask: List<TaskView>) {
+        this.removeAllViews()
+        this.listTask = listTask
+        setCell()
+        listTask.forEach { taskView ->
+            this.addView(taskView)
+        }
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val countChild = childCount
-        maxHeight = 0
-        var maxWidth = 0
-
-        for (i in 0 until countChild) {
-            val child = getChildAt(i)
-            if ((child as TypeCustomView).getType() == ShedulerType.CALENDAR) {
-                maxWidth += child.width
-                maxHeight += (child as CellCalendarView).heightLineVertical.toInt()
-            }
-        }
         val resolveWidth = resolveSize(maxWidth, widthMeasureSpec)
         val resolveHeight = resolveSize(maxHeight, heightMeasureSpec)
-
-        setMeasuredDimension(resolveWidth, maxHeight)
+        setMeasuredDimension(resolveWidth, resolveHeight)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         super.onLayout(changed, l, t, r, b)
-        for (i in 1..childCount) {
-            val child = getChildAt(i - 1)
 
+        var heightVerticalLine = 0
+        for (i in 0 until childCount) {
+            val child = getChildAt(i)
             when ((child as TypeCustomView).getType()) {
                 ShedulerType.CALENDAR -> {
                     child.id = i
@@ -49,11 +66,7 @@ class CalendarViewGroup @JvmOverloads constructor(
                     heightVerticalLine += (child as CellCalendarView).heightLineVertical.toInt()
                 }
                 ShedulerType.TASK -> {
-                   child.id = i
-                   (child as TaskView).task?.dateStart?.toCoordinate(b)?.let { task ->
-                       arrayTask.add(task)
-                   }
-                   child.layout(l, t, r, b)
+                    child.layout(l, t, r, b)
                 }
             }
         }

@@ -1,6 +1,8 @@
 package com.a5k.tasksheduler.data.datasource
 
+import androidx.lifecycle.LiveData
 import com.a5k.tasksheduler.data.model.TaskDto
+import kotlinx.coroutines.flow.Flow
 
 interface TaskDatasource {
 
@@ -8,7 +10,7 @@ interface TaskDatasource {
 
     suspend fun getTask(id: Int): List<TaskDto?>
 
-    suspend fun getTask(dateStart: Long, dateFinish: Long): List<TaskDto?>
+    suspend fun getTask(dateStart: Long, dateFinish: Long): List<TaskDto>
 
     suspend fun saveTask(task: TaskDto)
 

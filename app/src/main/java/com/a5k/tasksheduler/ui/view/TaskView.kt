@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.a5k.tasksheduler.R
 import com.a5k.tasksheduler.domain.entity.Task
+import com.a5k.tasksheduler.util.PATTERN_TIME
 import com.a5k.tasksheduler.util.toCoordinate
 import com.a5k.tasksheduler.util.toStringTime
 
@@ -79,8 +80,8 @@ class TaskView @JvmOverloads constructor(
             val endYCoordinateTask = task.dateFinish.toCoordinate(heightCalendar)
             val heightTextTitle = textPaint.textSize
 
-            val startTime = task.dateStart.toStringTime()
-            val endTime =task.dateFinish.toStringTime()
+            val startTime = task.dateStart.toStringTime(PATTERN_TIME)
+            val endTime =task.dateFinish.toStringTime(PATTERN_TIME)
 
             val heightTextTime = textTimePaint.textSize
             val measureTextTime = textTimePaint.measureText(startTime)

@@ -45,8 +45,8 @@ class CellCalendarView @JvmOverloads constructor(
 
     fun setting(time: String) {
         this.time = time
-        requestLayout()
-        invalidate()
+       /* requestLayout()
+        invalidate()*/
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

@@ -5,4 +5,4 @@ import com.a5k.tasksheduler.domain.entity.Task
 
 fun TaskDto.toTask() = Task(id, dateStart.toLong(), dateFinish.toLong(), name, description)
 
-fun Task.toTaskDto() = TaskDto(id, dateStart.toString(), dateFinish.toString(), name, description)
+fun Task.toTaskDto() = TaskDto(id, dateStart, dateFinish, name, description)

@@ -9,9 +9,9 @@ data class TaskDto(
     @PrimaryKey( autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "date_start")
-    val dateStart: String,
+    val dateStart: Long,
     @ColumnInfo(name = "date_finish")
-    val dateFinish: String,
+    val dateFinish: Long,
     val name: String,
     val description: String,
 )

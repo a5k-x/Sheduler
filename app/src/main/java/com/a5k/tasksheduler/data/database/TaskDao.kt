@@ -2,6 +2,7 @@ package com.a5k.tasksheduler.data.database
 
 import androidx.room.*
 import com.a5k.tasksheduler.data.model.TaskDto
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
@@ -13,7 +14,7 @@ interface TaskDao {
     suspend fun getTask(id: Int): List<TaskDto?>
 
     @Query("SELECT * FROM task WHERE date_start >= :dateStart AND date_finish <= :dateFinish")
-    suspend fun getTask(dateStart: String, dateFinish: String): List<TaskDto?>
+    suspend fun getTask(dateStart: Long, dateFinish: Long): List<TaskDto>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveTask(task: TaskDto)

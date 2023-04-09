@@ -12,6 +12,7 @@ import com.a5k.tasksheduler.App
 import com.a5k.tasksheduler.databinding.AddTaskLayoutBinding
 import com.a5k.tasksheduler.databinding.FragmentTasksBinding
 import com.a5k.tasksheduler.domain.entity.Task
+import com.a5k.tasksheduler.domain.entity.Operation
 import com.a5k.tasksheduler.presentation.viewmodel.TaskViewModel
 import com.a5k.tasksheduler.ui.view.CellCalendarView
 import com.a5k.tasksheduler.ui.view.TaskView
@@ -45,27 +46,48 @@ class TaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = viewModelFactory.create(TaskViewModel::class.java)
         initTimeInContainer()
+        initCurrentDate()
         initObserve()
         initListener()
-        viewModel.listTask()
+    }
 
+    private fun initTimeInContainer() {
+        val listCell = mutableListOf<CellCalendarView>()
+        for (hour in 0..23) {
+            val view = CellCalendarView(requireContext()).apply { setting(String.format(TIME_FORMAT_TEXT, hour)) }
+            listCell.add(view)
+        }
+        binding?.containerMm?.initCell(listCell)
     }
 
     private fun initObserve() {
         viewModel.apply {
             observe(listTask, ::renderListTask)
+            observe(titleDay, ::renderTitleDay)
         }
+    }
+
+    private fun initCurrentDate(){
+        viewModel.setTitleDate()
     }
 
     private fun initListener() {
         binding?.addTask?.setOnClickListener {
             openDialogAddTask()
         }
+        binding?.backDate?.setOnClickListener {
+            val date = binding?.currentDate?.text.toString()
+            viewModel.getTask(Operation.PREVIEW, date)
+        }
+        binding?.nextDate?.setOnClickListener {
+            val date = binding?.currentDate?.text.toString()
+            viewModel.getTask(Operation.NEXT, date)
+        }
     }
 
     private fun openDialogAddTask() {
         val view = AddTaskLayoutBinding.inflate(layoutInflater)
-        val dialog = MaterialAlertDialogBuilder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setView(view.root)
             .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
             .setPositiveButton("Save") { d, _ ->
@@ -76,8 +98,7 @@ class TaskFragment : Fragment() {
                 val description = view.descriptionField.text.toString()
                 viewModel.saveTask(date, name, startTime, finishTime, description)
                 d.dismiss()
-            }
-        dialog.show()
+            }.show()
         initListenerStartTime(view)
         initListenerFinishTime(view)
     }
@@ -85,7 +106,7 @@ class TaskFragment : Fragment() {
     private fun initListenerStartTime(view: AddTaskLayoutBinding) {
         view.dateField.setOnClickListener {
             val datePicker = DatePickerFragment { _, year, month, day, ->
-                val date = String.format(DATE_FORMAT, day, month, year)
+                val date = String.format(DATE_FORMAT, day, month + 1, year)
                 view.dateField.setText(date)
             }
             datePicker.show(childFragmentManager, null)
@@ -110,20 +131,21 @@ class TaskFragment : Fragment() {
     }
 
     private fun renderListTask(list: List<Task>) {
-        val lin = binding?.containerMm
+        val taskContainer = binding?.containerMm
         Log.d("HARDCODE", "LIST TASK SIZE = ${list.size}")
+        val listTaskView = mutableListOf<TaskView>()
         list.forEach { task ->
-            lin?.addView(TaskView(requireContext()).apply {
+            val taskView = TaskView(requireContext()).apply {
                 settingViewTask(task)
-            })
+            }
+            listTaskView.add(taskView)
         }
+        taskContainer?.initTask(listTaskView)
     }
 
-    private fun initTimeInContainer() {
-        val lin = binding?.containerMm
-        for (hour in 0..23) {
-            lin?.addView(CellCalendarView(requireContext()).apply { setting(String.format("%02d:00", hour)) })
-        }
+    private fun renderTitleDay(date: String) {
+        binding?.currentDate?.text = date
+        viewModel.listCurrentTasks(date)
     }
 
     override fun onDestroy() {
