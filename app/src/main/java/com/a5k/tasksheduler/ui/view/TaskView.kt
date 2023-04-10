@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.a5k.tasksheduler.R
 import com.a5k.tasksheduler.domain.entity.Task
+import com.a5k.tasksheduler.domain.entity.TypeView
 import com.a5k.tasksheduler.util.PATTERN_TIME
 import com.a5k.tasksheduler.util.toCoordinate
 import com.a5k.tasksheduler.util.toStringTime
@@ -137,6 +138,6 @@ class TaskView @JvmOverloads constructor(
         }
     }
 
-    override fun getType() = ShedulerType.TASK
+    override fun getType() = TypeView.TASK
 }
 

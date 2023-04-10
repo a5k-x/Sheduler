@@ -1,11 +1,8 @@
 package com.a5k.tasksheduler.ui.view
 
+import com.a5k.tasksheduler.domain.entity.TypeView
+
 interface TypeCustomView {
 
-    fun getType(): ShedulerType
-}
-
-enum class ShedulerType{
-    CALENDAR,
-    TASK
+    fun getType(): TypeView
 }

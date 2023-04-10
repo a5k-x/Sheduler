@@ -2,11 +2,8 @@ package com.a5k.tasksheduler.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.MotionEvent.ACTION_MOVE
-import android.widget.FrameLayout
 import android.widget.LinearLayout
-import com.a5k.tasksheduler.util.toCoordinate
+import com.a5k.tasksheduler.domain.entity.TypeView
 
 class CalendarViewGroup @JvmOverloads constructor(
     context: Context,
@@ -60,12 +57,12 @@ class CalendarViewGroup @JvmOverloads constructor(
         for (i in 0 until childCount) {
             val child = getChildAt(i)
             when ((child as TypeCustomView).getType()) {
-                ShedulerType.CALENDAR -> {
+                TypeView.CALENDAR -> {
                     child.id = i
                     child.layout(l, heightVerticalLine, r, b)
                     heightVerticalLine += (child as CellCalendarView).heightLineVertical.toInt()
                 }
-                ShedulerType.TASK -> {
+                TypeView.TASK -> {
                     child.layout(l, t, r, b)
                 }
             }

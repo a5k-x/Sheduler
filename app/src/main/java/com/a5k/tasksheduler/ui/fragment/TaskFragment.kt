@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.a5k.tasksheduler.App
+import com.a5k.tasksheduler.R
 import com.a5k.tasksheduler.databinding.AddTaskLayoutBinding
 import com.a5k.tasksheduler.databinding.FragmentTasksBinding
 import com.a5k.tasksheduler.domain.entity.Task
@@ -54,10 +55,12 @@ class TaskFragment : Fragment() {
     private fun initTimeInContainer() {
         val listCell = mutableListOf<CellCalendarView>()
         for (hour in 0..23) {
-            val view = CellCalendarView(requireContext()).apply { setting(String.format(TIME_FORMAT_TEXT, hour)) }
+            val view = CellCalendarView(requireContext()).apply {
+                setting(String.format(TIME_FORMAT_TEXT, hour))
+            }
             listCell.add(view)
         }
-        binding?.containerMm?.initCell(listCell)
+        binding?.calendarContainer?.initCell(listCell)
     }
 
     private fun initObserve() {
@@ -67,7 +70,7 @@ class TaskFragment : Fragment() {
         }
     }
 
-    private fun initCurrentDate(){
+    private fun initCurrentDate() {
         viewModel.setTitleDate()
     }
 
@@ -89,8 +92,8 @@ class TaskFragment : Fragment() {
         val view = AddTaskLayoutBinding.inflate(layoutInflater)
         MaterialAlertDialogBuilder(requireContext())
             .setView(view.root)
-            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
-            .setPositiveButton("Save") { d, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { d, _ -> d.dismiss() }
+            .setPositiveButton(getString(R.string.sava)) { d, _ ->
                 val date = view.dateField.text.toString()
                 val name = view.nameTask.text.toString()
                 val startTime = view.startTimeField.text.toString()
@@ -105,7 +108,7 @@ class TaskFragment : Fragment() {
 
     private fun initListenerStartTime(view: AddTaskLayoutBinding) {
         view.dateField.setOnClickListener {
-            val datePicker = DatePickerFragment { _, year, month, day, ->
+            val datePicker = DatePickerFragment { _, year, month, day ->
                 val date = String.format(DATE_FORMAT, day, month + 1, year)
                 view.dateField.setText(date)
             }
@@ -131,8 +134,7 @@ class TaskFragment : Fragment() {
     }
 
     private fun renderListTask(list: List<Task>) {
-        val taskContainer = binding?.containerMm
-        Log.d("HARDCODE", "LIST TASK SIZE = ${list.size}")
+        val taskContainer = binding?.calendarContainer
         val listTaskView = mutableListOf<TaskView>()
         list.forEach { task ->
             val taskView = TaskView(requireContext()).apply {

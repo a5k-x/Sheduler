@@ -8,8 +8,6 @@ import com.a5k.tasksheduler.domain.repository.TaskRepository
 import com.a5k.tasksheduler.util.PATTERN_DATE_POINT
 import com.a5k.tasksheduler.util.toDateFinish
 import com.a5k.tasksheduler.util.toDateStart
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.mapNotNull
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,7 +31,7 @@ class TaskRepositoryImpl @Inject constructor(
     override suspend fun getTask(date: String): List<Task> {
         val dateStart = date.toDateStart(PATTERN_DATE_POINT)
         val dateFinish = date.toDateFinish(PATTERN_DATE_POINT)
-        return taskDatasource.getTask(dateStart, dateFinish).mapNotNull { taskDto ->
+        return taskDatasource.getTask(dateStart, dateFinish).map { taskDto ->
             taskDto.toTask()
         }
     }

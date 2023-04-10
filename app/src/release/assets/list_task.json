@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "date_start": "1681205640000",
+    "date_finish": "1681212840000",
+    "name": "Task 1",
+    "description": "Описание дела"
+  },
+  {
+    "id": 2,
+    "date_start": "1681216860000",
+    "date_finish": "1681238460000",
+    "name": "Task 2",
+    "description": "Описание дела"
+  },
+  {
+    "id": 3,
+    "date_start": "1681386120000",
+    "date_finish": "1681407720000",
+    "name": "Task 3",
+    "description": "Описание дела"
+  }
+]

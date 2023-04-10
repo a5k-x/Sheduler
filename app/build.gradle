@@ -5,6 +5,10 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {}
+        debug {}
+    }
     namespace 'com.a5k.tasksheduler'
     compileSdk 33
 
@@ -14,14 +18,20 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
+        signingConfigs.debug
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
@@ -51,6 +61,9 @@ dependencies {
 
     //COROUTINE
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+
+    //GSON
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

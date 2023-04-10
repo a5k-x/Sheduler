@@ -62,11 +62,7 @@ fun String.toSumTime(time: String): Long {
     return dateTimestamp + timeTimestamp
 }
 
-//вынести
-fun defaultCoroutineExceptionHandler() = CoroutineExceptionHandler { _, throwable ->
-    Log.e("ERROR", throwable.message.toString())
-}
-
 fun Date.currentDay() = SimpleDateFormat(PATTERN_DATE_POINT).format(this)
 
 fun String.getDate(pattern: String) = SimpleDateFormat(pattern).parse(this)
+

@@ -7,6 +7,7 @@ import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import com.a5k.tasksheduler.R
+import com.a5k.tasksheduler.domain.entity.TypeView
 
 
 class CellCalendarView @JvmOverloads constructor(
@@ -68,5 +69,5 @@ class CellCalendarView @JvmOverloads constructor(
         drawLine(wightTextX, startLineHorizontalY, longHorizontal.toFloat(), startLineHorizontalY, linePaint)
     }
 
-    override fun getType() = ShedulerType.CALENDAR
+    override fun getType() = TypeView.CALENDAR
 }
